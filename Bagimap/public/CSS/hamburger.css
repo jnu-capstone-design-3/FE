@@ -1,0 +1,159 @@
+/* 기본 스타일 */
+.menu {
+  display: none; /* 초기에는 메뉴바를 숨김 */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(220,114,93);
+  z-index: 9999;
+}
+
+.menu ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  height: 100%;
+  text-align: left;
+}
+
+.menu li {
+  margin-bottom: 20px;
+  list-style-type: none;
+  list-style: none;
+}
+
+.menu li:last-child {
+  margin-bottom: 0;
+}
+
+.menu li a {
+  color: #333;
+  font-size: 15px;
+  text-decoration-line : none;
+  text-decoration : none;
+}
+
+/*
+hr {
+  display: block;
+  height:1px;
+  width:100%;
+  border:0;
+  border-top:1px solid #fff;
+  margin-top:200px;
+  margin-bottom:10px;
+}
+*/
+
+/* nav-wrapper 스타일 */
+.nav-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+}
+
+/* 프로필 스타일 */
+.profile {
+  position:absolute;
+  top:10%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top:20px;
+  margin-bottom:500px;
+  border-bottom:1px solid #fff;
+}
+
+.profile img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.profile-info h2 {
+  font-size: 13px;
+  color:#fff;
+  margin: 0;
+}
+
+
+/* 햄버거 메뉴 스타일 */
+.hamburger-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  z-index: 10000;
+}
+
+.hamburger-menu .bar {
+  width: 30px;
+  height: 3px;
+  margin-bottom: 5px;
+  background-color: #333;
+  transition: all 0.3s ease-in-out;
+}
+
+/* 햄버거 메뉴 클릭시 메뉴바 나타내기 */
+.menu.active {
+  display: flex;
+  width:300px;
+}
+
+/*
+.hamburger-menu.active .bar:nth-child(1) {
+  transform: translateY(10px) rotate(45deg);
+}
+
+.hamburger-menu.active .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-menu.active .bar:nth-child(3) {
+  transform: translateY(-10px) rotate(-45deg);
+}
+*/
+
+/*
+.close-menu {
+  display: flex;
+  position: absolute;
+  align-items: center;
+  justify-content: flex-start;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+  font-size: 24px;
+  padding: 10px;
+}
+*/
+
+
+
+@media (max-width: 768px) {
+  .menu {
+    width: 100%;
+    left: -100%;
+  }
+
+  .menu.active {
+    left: 0;
+  }
+}
