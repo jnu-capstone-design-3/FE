@@ -1,0 +1,130 @@
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background-color: rgb(220, 114, 93);
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.wrapper {
+	max-width: 600px;
+	margin: 0 auto;
+	padding: 20px;
+}
+
+header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 20px;
+	color: #fff;
+}
+
+h1 {
+	font-size: 28px;
+}
+
+.add-friend {
+	background-color: #fff;
+	color: #222;
+	padding: 8px 16px;
+	border-radius: 20px;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.add-friend:hover {
+	background-color: #ddd;
+}
+
+.friend-list {
+	background-color: #fff;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+}
+
+.friend-list ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.friend-list li {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 15px;
+	padding-bottom: 15px;
+	border-bottom: 1px solid #eee;
+}
+
+.friend-list li:last-child {
+	margin-bottom: 0;
+	padding-bottom: 0;
+	border-bottom: none;
+}
+
+.friend-list li img {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	margin-right: 15px;
+}
+
+.friend-list li h2 {
+	font-size: 18px;
+	color: #222;
+}
+
+.friend-list li p {
+	font-size: 14px;
+	color: #999;
+	margin-top: 5px;
+}
+
+.chat-count {
+	background-color: rgb(220, 114, 93);
+	color: #fff;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 3px 6px;
+	border-radius: 10px;
+	margin-right: 5px;
+}
+
+.chat-date {
+	font-size: 12px;
+	color: #999;
+}
+
+.search-form {
+  display: flex;
+  align-items: center;
+}
+
+.search-form input[type="text"] {
+  padding: 8px;
+  border: none;
+  border-radius: 20px;
+  margin-right: 10px;
+  font-size: 14px;
+}
+
+.search-form button[type="submit"] {
+  background-color: #fff;
+  color: #222;
+  padding: 8px 16px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+
+.search-form button[type="submit"]:hover {
+  background-color: #ddd;
+}
