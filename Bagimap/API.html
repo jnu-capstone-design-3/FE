@@ -1,19 +1,27 @@
+<!-- HTML 문서 구조를 정의합니다 -->
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <title>여러 마커 표시하기</title>
+    <!-- 카카오 맵 API 를 가져옵니다 -->
     <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=075e624e2b1b132bdce48344acb80e4e"></script>
 </head>
 <body>
+<!-- 지도를 표시할 div 요소를 만듭니다 -->
 <div id="map" style="width:100%;height:600px;"></div>
+
 <script>
+    // 지도를 표시할 div 요소를 참조합니다
     var mapContainer = document.getElementById('map');
+    // 지도의 초기 위치 및 확대 레벨을 설정합니다
     var mapOptions = {
         center: new kakao.maps.LatLng(33.450701, 126.570667),
         level: 3
     };
+    // 지도를 생성합니다
     var map = new kakao.maps.Map(mapContainer, mapOptions);
+    // 사용자 위치, 마커, 인포 윈도우 등의 초기값을 설정합니다
     var linePath = [];
     var currentLocation;
     var currentMarker;
@@ -25,6 +33,7 @@
     var otherUserPosition = new kakao.maps.LatLng(otherUserLat, otherUserLon);
     var unique_value = "6731a3269da64168ad3f16f340ebf06f"; // Replace this with your unique value
     
+    // 서버에 POST 요청을 보냅니다
     var data = {
         "user_id": 3,
     };
@@ -35,17 +44,19 @@
         },
         body: JSON.stringify(data),
     })
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch((error) => console.error('Error:', error));
+    .then(response => response.json())  // 응답을 JSON 형태로 파싱합니다
+    .then(data => console.log(data))    // 파싱된 데이터를 콘솔에 출력합니다
+    .catch((error) => console.error('Error:', error));  // 에러가 발생하면 콘솔에 에러를 출력합니다
 
+    // 웹소켓 연결을 만듭니다
     var socket = new WebSocket('ws://172.30.1.94:8000/navi/' + unique_value + '/');
 
     socket.onopen = function(event) {
-        console.log("Connected to WebSocket server.");
+        console.log("Connected to WebSocket server.");  // 웹소켓 서버에 연결되었음을 출력합니다
     };
 
     socket.onmessage = function(event) {
+        // 웹소켓 서버로부터 받은 데이터를 파싱하고, 다른 사용자의 위치를 업데이트합니다
         var data = JSON.parse(event.data);
         console.log("Received data from WebSocket server: ", data);
         
@@ -54,18 +65,19 @@
         
         if (!isNaN(userLat) && !isNaN(userLon)) {
             otherUserPosition = new kakao.maps.LatLng(userLat, userLon);
-            updateMap();
+            updateMap();  // 사용자의 위치가 변경되었으므로, 지도를 업데이트합니다
         }
     };
 
     socket.onerror = function(error) {
-        console.log("WebSocket Error: " + error);
+        console.log("WebSocket Error: " + error);  // 웹소켓 오류가 발생했을 때 오류를 출력합니다
     };
 
     socket.onclose = function(event) {
-        console.log("WebSocket connection closed.");
+        console.log("WebSocket connection closed.");  // 웹소켓 연결이 종료되었음을 출력합니다
     };
-
+    
+    // 웹소켓을 통해 현재 위치를 전송합니다
     function sendCurrentLocation() {
         if (socket.readyState === WebSocket.OPEN) {
             var data = {
@@ -76,7 +88,8 @@
             socket.send(JSON.stringify(data));
         }
     }
-
+    
+    // 두 위치 사이의 방향을 구합니다
     function getDirection(origin, dest) {
         var deltaY = dest.getLat() - origin.getLat();
         var deltaX = dest.getLng() - origin.getLng();
@@ -92,7 +105,8 @@
             return "서쪽";
         }
     }
-
+    
+    // 현재 위치를 설정합니다
     function setCurrentLocation() {
         return new Promise(function(resolve, reject) {
             if (navigator.geolocation) {
@@ -111,6 +125,7 @@
         });
     }
 
+    // 마커와 인포윈도우를 표시합니다
     function displayMarker(marker, infowindow, locPosition, message) {
         // 기존 마커 제거
         if (marker) {
@@ -134,25 +149,27 @@
         return {newMarker, newInfowindow};
     }
 
-    setInterval(sendCurrentLocation, 1000);
+    setInterval(sendCurrentLocation, 1000);  // 매 초마다 현재 위치를 전송합니다
 
+    // 두 위치 사이의 거리를 구합니다
     function getDistance(position1, position2) {
         function toRad(degree) {
             return degree * Math.PI / 180;
         }
         var lat1 = position1.getLat(), lon1 = position1.getLng();
         var lat2 = position2.getLat(), lon2 = position2.getLng();
-        var R = 6371;
+        var R = 6371;  // 지구의 반지름을 킬로미터 단위로 표현한 값입니다
         var dLat = toRad(lat2-lat1);
         var dLon = toRad(lon2-lon1);
         var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
                 Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
                 Math.sin(dLon/2) * Math.sin(dLon/2);
         var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-        var distance = R * c;
+        var distance = R * c;  // 거리를 계산합니다
         return distance;
     }
 
+    // 두 위치를 연결하는 선을 그립니다
     function drawLine() {
         var polyline = new kakao.maps.Polyline({
             path: linePath,
@@ -164,6 +181,7 @@
         polyline.setMap(map);
     }
 
+    // 지도의 상태를 업데이트합니다
     function updateMap() {
         // 현재 위치, 방향, 거리 정보 업데이트
         var distance = getDistance(currentLocation, otherUserPosition).toFixed(2);
@@ -183,6 +201,7 @@
         drawLine();
     }
 
+    // 현재 위치를 설정하고, 마커와 인포윈도우를 표시한 후, 매 초마다 지도를 업데이트합니다
     setCurrentLocation().then(function(locPosition) {
         var currentLocationMessage = '<div style="padding:5px;width:150px;">현재 위치</div>';
         var result = displayMarker(currentMarker, currentInfoWindow, locPosition, currentLocationMessage);
@@ -194,7 +213,7 @@
         otherUserMarker = result.newMarker;
         otherUserInfowindow = result.newInfowindow;
 
-        setInterval(updateMap, 1000);
+        setInterval(updateMap, 1000);  // 매 초마다 지도를 업데이트합니다
     });
 </script>
 </body>
