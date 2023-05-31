@@ -17,12 +17,14 @@
     var linePath = [];
     var currentLocation;
     var currentMarker;
+    var currentInfoWindow;
+    var otherUserMarker;
+    var otherUserInfowindow;
     var otherUserLat = 33.455701;
     var otherUserLon = 126.575667;
     var otherUserPosition = new kakao.maps.LatLng(otherUserLat, otherUserLon);
     var unique_value = "6731a3269da64168ad3f16f340ebf06f"; // Replace this with your unique value
     
-    // Generate data and send POST request
     var data = {
         "user_id": 3,
     };
@@ -37,7 +39,6 @@
     .then(data => console.log(data))
     .catch((error) => console.error('Error:', error));
 
-    // Create a WebSocket connection
     var socket = new WebSocket('ws://172.30.1.94:8000/navi/' + unique_value + '/');
 
     socket.onopen = function(event) {
@@ -48,13 +49,10 @@
         var data = JSON.parse(event.data);
         console.log("Received data from WebSocket server: ", data);
         
-        // 데이터에서 사용자의 위치를 가져옵니다
         var userLat = parseFloat(data.coordinate_x);
         var userLon = parseFloat(data.coordinate_y);
         
-        // 유효한 좌표 값인지 확인합니다
         if (!isNaN(userLat) && !isNaN(userLon)) {
-            // 사용자의 위치를 업데이트합니다
             otherUserPosition = new kakao.maps.LatLng(userLat, userLon);
             updateMap();
         }
@@ -79,7 +77,6 @@
         }
     }
 
-    // 주어진 두 점 사이의 방향을 계산하는 함수입니다.
     function getDirection(origin, dest) {
         var deltaY = dest.getLat() - origin.getLat();
         var deltaX = dest.getLng() - origin.getLng();
@@ -114,27 +111,29 @@
         });
     }
 
-    function displayMarker(locPosition, message) {
-        var marker = new kakao.maps.Marker({
+    function displayMarker(marker, infowindow, locPosition, message) {
+        // 기존 마커 제거
+        if (marker) {
+            marker.setMap(null);
+        }
+        var newMarker = new kakao.maps.Marker({
             map: map,
             position: locPosition
         });
 
-        if (locPosition === currentLocation) {
-            currentMarker = marker;
+        // 기존 인포윈도우 제거
+        if (infowindow) {
+            infowindow.close();
         }
-
-        var iwContent = message, 
-            iwRemoveable = true;
-        var infowindow = new kakao.maps.InfoWindow({
-            content: iwContent,
-            removable: iwRemoveable
+        var newInfowindow = new kakao.maps.InfoWindow({
+            content: message,
+            removable: true
         });
-        infowindow.open(map, marker);
-        linePath.push(locPosition);
+        newInfowindow.open(map, newMarker);
+        
+        return {newMarker, newInfowindow};
     }
 
-    // 1초마다 사용자의 위치를 서버로 보냅니다.
     setInterval(sendCurrentLocation, 1000);
 
     function getDistance(position1, position2) {
@@ -166,39 +165,37 @@
     }
 
     function updateMap() {
-        // 현재 마커를 지웁니다
-        currentMarker.setMap(null);
-
-        // 새 위치에 마커를 추가합니다
-        displayMarker(otherUserPosition, "새 위치");
-
-        // 선을 다시 그립니다
-        linePath = [currentLocation, otherUserPosition]; // 선의 경로를 업데이트합니다
-        drawLine();
-    }
-
-
-    async function initMap() {
-        await setCurrentLocation();
+        // 현재 위치, 방향, 거리 정보 업데이트
         var distance = getDistance(currentLocation, otherUserPosition).toFixed(2);
         var direction = getDirection(currentLocation, otherUserPosition);
         var currentLocationMessage = `<div style="padding:5px;width:150px;">현재 위치 <br>다른 사용자와의 거리: ${distance} km <br>다른 사용자의 방향: ${direction} </div>`;
-        displayMarker(currentLocation, currentLocationMessage);
-        var otherUserMessage = '<div style="padding:5px;">다른 사용자</div>';
-        displayMarker(otherUserPosition, otherUserMessage);
+        var result = displayMarker(currentMarker, currentInfoWindow, currentLocation, currentLocationMessage);
+        currentMarker = result.newMarker;
+        currentInfoWindow = result.newInfowindow;
+
+        var otherUserMessage = `<div style="padding:5px;width:150px;">일행1</div>`;
+        result = displayMarker(otherUserMarker, otherUserInfowindow, otherUserPosition, otherUserMessage);
+        otherUserMarker = result.newMarker;
+        otherUserInfowindow = result.newInfowindow;
+
+        // 선을 다시 그립니다
+        linePath = [currentLocation, otherUserPosition];
         drawLine();
     }
 
-    navigator.geolocation.watchPosition(function(position) {
-        var lat = position.coords.latitude,
-            lon = position.coords.longitude;
-        currentLocation = new kakao.maps.LatLng(lat, lon);
-        
-        // 위치가 변경될 때마다 WebSocket으로 현재 위치를 보냅니다.
-        sendCurrentLocation();
-    });
+    setCurrentLocation().then(function(locPosition) {
+        var currentLocationMessage = '<div style="padding:5px;width:150px;">현재 위치</div>';
+        var result = displayMarker(currentMarker, currentInfoWindow, locPosition, currentLocationMessage);
+        currentMarker = result.newMarker;
+        currentInfoWindow = result.newInfowindow;
 
-    initMap();
+        var otherUserMessage = `<div style="padding:5px;width:150px;">일행1</div>`;
+        result = displayMarker(otherUserMarker, otherUserInfowindow, otherUserPosition, otherUserMessage);
+        otherUserMarker = result.newMarker;
+        otherUserInfowindow = result.newInfowindow;
+
+        setInterval(updateMap, 1000);
+    });
 </script>
 </body>
 </html>
