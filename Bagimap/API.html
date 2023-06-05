@@ -125,29 +125,62 @@
         });
     }
 
-    // 마커와 인포윈도우를 표시합니다
-    function displayMarker(marker, infowindow, locPosition, message) {
-        // 기존 마커 제거
-        if (marker) {
-            marker.setMap(null);
-        }
-        var newMarker = new kakao.maps.Marker({
-            map: map,
-            position: locPosition
-        });
-
-        // 기존 인포윈도우 제거
-        if (infowindow) {
-            infowindow.close();
-        }
-        var newInfowindow = new kakao.maps.InfoWindow({
-            content: message,
-            removable: true
-        });
-        newInfowindow.open(map, newMarker);
-        
-        return {newMarker, newInfowindow};
+   // 기존 마커와 인포윈도우를 표시하는 함수
+function displayMarker(marker, infowindow, locPosition, message) {
+    // 기존 마커 제거
+    if (marker) {
+        marker.setMap(null);
     }
+
+    var newMarker = new kakao.maps.Marker({
+        map: map,
+        position: locPosition
+    });
+
+    // 기존 인포윈도우 제거
+    if (infowindow) {
+        infowindow.close();
+    }
+    var newInfowindow = new kakao.maps.InfoWindow({
+        content: message,
+        removable: true
+    });
+    newInfowindow.open(map, newMarker);
+    
+    return {newMarker, newInfowindow};
+}
+
+// 사용자 정의 마커와 인포윈도우를 표시하는 함수
+function displayCustomMarker(marker, infowindow, locPosition, message) {
+    // 기존 마커 제거
+    if (marker) {
+        marker.setMap(null);
+    }
+
+    var markerImageSrc = 'http://i1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png',
+        markerImageSize = new kakao.maps.Size(40, 60), 
+        markerImageOption = {offset: new kakao.maps.Point(20, 60)};
+
+    var markerImage = new kakao.maps.MarkerImage(markerImageSrc, markerImageSize, markerImageOption);
+
+    var newMarker = new kakao.maps.Marker({
+        map: map,
+        position: locPosition,
+        image: markerImage
+    });
+
+    // 기존 인포윈도우 제거
+    if (infowindow) {
+        infowindow.close();
+    }
+    var newInfowindow = new kakao.maps.InfoWindow({
+        content: message,
+        removable: true
+    });
+    newInfowindow.open(map, newMarker);
+    
+    return {newMarker, newInfowindow};
+}
 
     setInterval(sendCurrentLocation, 1000);  // 매 초마다 현재 위치를 전송합니다
 
@@ -192,13 +225,16 @@
         currentInfoWindow = result.newInfowindow;
 
         var otherUserMessage = `<div style="padding:5px;width:150px;">일행1</div>`;
-        result = displayMarker(otherUserMarker, otherUserInfowindow, otherUserPosition, otherUserMessage);
+        result = displayCustomMarker(otherUserMarker, otherUserInfowindow, otherUserPosition, otherUserMessage);
         otherUserMarker = result.newMarker;
         otherUserInfowindow = result.newInfowindow;
 
         // 선을 다시 그립니다
         linePath = [currentLocation, otherUserPosition];
         drawLine();
+
+        // 지도의 중심을 현재 위치로 설정합니다
+        map.setCenter(currentLocation);
     }
 
     // 현재 위치를 설정하고, 마커와 인포윈도우를 표시한 후, 매 초마다 지도를 업데이트합니다
