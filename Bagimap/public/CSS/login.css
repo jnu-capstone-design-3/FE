@@ -1,5 +1,5 @@
 .login-container {
-  background-color: rgb(220,114,93);
+  background-color: rgb(220, 114, 93);
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -19,14 +19,14 @@ form {
 h1 {
   font-size: 2em;
   margin-bottom: 20px;
-  color: rgb(220,114,93);
+  color: rgb(220, 114, 93);
 }
 
 label {
   display: block;
   margin-bottom: 10px;
   text-align: left;
-  color: rgb(220,114,93);
+  color: rgb(220, 114, 93);
 }
 
 input[type="text"],
@@ -40,26 +40,33 @@ input[type="password"] {
 }
 
 button[type="submit"] {
-  background-color: rgb(220,114,93);
+  background-color: rgb(220, 114, 93);
   color: white;
+  font-weight: bold;
   padding: 10px 20px;
   border: none;
   border-radius: 3px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   width: 100%; /* 추가 */
-  margin-bottom:10px;
+  margin-bottom: 10px;
 }
 
-#kakao_login{
-  background-color: #FECB68;
-  color: white;
+#kakao_login {
+  background-color: #fee500;
+  color: #3c1e1e;
   padding: 10px 20px;
+  height: 40px;
   border: none;
   border-radius: 3px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  width: 100%; 
+  width: 100%;
+}
+
+#kakao_login img {
+  width: 20px;
+  height: 20px;
 }
 
 /* 추가 */

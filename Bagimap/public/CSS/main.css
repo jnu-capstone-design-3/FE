@@ -1,11 +1,41 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+}
+
+.body-wrapper {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  overflow: hidden;
+}
+
+#map {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 0;
+  padding: 0;
+}
+
 .search-container {
   background-color: #f2f2f2;
   display: flex;
-  position:relative;
+  position: relative;
   justify-content: center;
   align-items: center;
   height: 100vh;
 }
+
 
 form {
   background-color: white;
@@ -14,41 +44,40 @@ form {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   max-width: 500px;
   width: 100%;
-  height:40px;
-  margin-bottom:800px;
+  height: 40px;
+  margin-bottom: 800px;
+  z-index: 9999 !important;
 }
 
-
-img{
-  width:22px;
+img {
+  width: 22px;
 }
 
-#voice_button{
-  display:flex;
+#voice_button {
+  display: flex;
   justify-content: right;
   align-items: right;
-  float:right;
-  margin-top:5px;
-  padding:5px;
-  border:none;
-  background-color: white;
+  float: right;
+  padding: 10px;
+  border: none;
+  background-color: #fff;
+  height: 0px;
 }
-
 
 input[type="text"] {
   justify-content: center;
   align-items: center;
-  float:left;
+  float: left;
   width: 90%;
-  height:10px;
+  height: 10px;
   padding: 15px;
   border-radius: 3px;
   border: none;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
 }
 
-.button_container{
-  display:flex;
+.button_container {
+  display: flex;
 }
 
 /*
@@ -76,7 +105,8 @@ button[type="submit"]:hover {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: #fff;
+  background-color: rgb(220, 114, 93);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 1);
   z-index: 9999;
 }
 
@@ -85,7 +115,6 @@ button[type="submit"]:hover {
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  height: 100%;
   text-align: left;
 }
 
@@ -100,10 +129,10 @@ button[type="submit"]:hover {
 }
 
 .menu li a {
-  color: #333;
+  color: #fff;
   font-size: 15px;
-  text-decoration-line : none;
-  text-decoration : none;
+  text-decoration-line: none;
+  text-decoration: none;
 }
 
 /*
@@ -123,21 +152,21 @@ hr {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 20px;
+  padding: 5px 5px;
 }
 
 /* 프로필 스타일 */
 .profile {
-  position:absolute;
-  top:10%;
-  left:50%;
-  transform:translate(-50%,-50%);
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top:70px;
-  border-bottom:1px solid #ccc;
+  margin-top: 70px;
+  border-bottom: 1px solid #fff;
 }
 
 .profile img {
@@ -145,6 +174,7 @@ hr {
   height: 40px;
   border-radius: 50%;
   margin-bottom: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
 }
 
 .profile-info {
@@ -155,10 +185,9 @@ hr {
 
 .profile-info h2 {
   font-size: 13px;
-  color:#ccc;
+  color: #fff;
   margin: 0;
 }
-
 
 /* 햄버거 메뉴 스타일 */
 .hamburger-menu {
@@ -183,7 +212,7 @@ hr {
 /* 햄버거 메뉴 클릭시 메뉴바 나타내기 */
 .menu.active {
   display: flex;
-  width:300px;
+  width: 250px;
 }
 
 /*
@@ -215,10 +244,11 @@ hr {
 }
 */
 
+
 @media (max-width: 768px) {
   form {
     max-width: 700px;
-    max-height:1000vh;
+    max-height: 1000vh;
   }
 
   .menu {

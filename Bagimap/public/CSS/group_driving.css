@@ -2,65 +2,89 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
+  position: relative;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+}
+
+.body-wrapper {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  overflow: hidden;
 }
 
 #map {
-  height: 400px; 
-  width: 100%; 
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .driving-container {
+  position: absolute;
+  height: 100vh;
+  bottom: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
+  /* margin-left: 200px; */
 }
 
-.mark-container{
+.mark-container {
   display: flex;
-  position: relative;
-  bottom:400px;
+  position: absolute;
+  top: 40px;
+  left: 0;
   flex-wrap: wrap;
   justify-content: left;
   padding: 20px;
   flex-direction: column;
-  margin-right:230px;
+  /* margin-right: 230px; */
+  z-index: 9999 !important;
 }
 
-.mark-destination{
-  width:120px;
+.mark-destination {
+  width: 120px;
   position: relative;
-  background-color:rgb(220,114,93);
-  color:white;
+  background-color: rgb(220, 114, 93);
+  color: white;
   font-weight: bold;
-  border-radius:10px;
+  border-radius: 10px;
   text-align: center;
-  padding:10px;
-  margin-bottom: -15px; 
+  padding: 10px;
+  margin-bottom: -15px;
 }
 
 .mark-destination p,
-.mark-dedtination span{
-  font-size:30px;
-  margin:15px;
-  margin-bottom:0px;
-  margin-left:8px;
+.mark-dedtination span {
+  font-size: 30px;
+  margin: 15px;
+  margin-bottom: 0px;
+  margin-left: 8px;
 }
 
-.mark-destination span{
-  font-size:15px;
-  margin-top:1px;
+.mark-destination span {
+  font-size: 15px;
+  margin-top: 1px;
 }
 
-.mark-distance{
+.mark-distance {
   width: 80px;
-  height:30px;
-  background-color: #BF6350;
-  color:white;
-  border-radius:10px;
+  height: 30px;
+  background-color: #bf6350;
+  color: white;
+  border-radius: 10px;
   text-align: center;
-  line-height:45px;
-  padding:10px;
+  line-height: 45px;
+  padding: 10px;
 }
 
 .mark-destination p::before,
@@ -70,24 +94,38 @@ body {
 
 .mark-destination p,
 .mark-distance h4 {
-  display: inline; 
-  height:10px;
+  display: inline;
+  height: 10px;
 }
 
 /*하단 바*/
 
-.directions-container {
+.nav-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
   display: flex;
-  width:380px;
-  height:250px;
+  flex-direction: column;
+  margin: auto 0;
+  width: 100vw;
+}
+
+.directions-container {
+  /* position: absolute; */
+  margin: 0 auto;
+  bottom: 50px;
+  display: flex;
+  width: 350px;
+  height: 200px;
   flex-wrap: wrap;
   justify-content: center;
   padding: 8px;
-  margin-top:30px;
+  margin-top: 30px;
   background-color: #474946;
   border-radius: 15px;
-  margin-bottom: -15px; 
-
+  margin-bottom: -15px;
+  z-index: 9999 !important;
 }
 
 /*
@@ -105,8 +143,8 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 150px;
-  height:150px;
+  width: 130px;
+  height: 130px;
   background-color: #f2f2f2;
   border-radius: 10px;
   margin: 10px;
@@ -118,11 +156,11 @@ body {
   border-bottom: 1px solid #ccc;
 }
 
-.directions-container .direction-card p{
-  position:relative;
-  top:80px;
-  font-weight:bold;
-  font-size:15px;
+.directions-container .direction-card p {
+  position: relative;
+  top: 80px;
+  font-weight: bold;
+  font-size: 15px;
 }
 
 .direction-card-image {
@@ -130,18 +168,19 @@ body {
   justify-content: center;
   align-items: center;
   position: absolute;
-  width: 70px;
-  height: 70px;
-  bottom:120px;
-  background: #FFFFFF;
+  width: 35px;
+  height: 35px;
+  bottom: 85px;
+  /*
+  background: #ffffff;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25); /* 이미지 높이를 조정하세요 */
-  border-radius:100px;
+  border-radius: 100px;
 }
 
 .direction-card-image img {
   max-width: 100%;
   max-height: 100%;
-  width:20x;
+  width: 20x;
 }
 
 .direction-card-image2 {
@@ -151,61 +190,65 @@ body {
   position: absolute;
   width: 70px;
   height: 70px;
-  bottom:120px;
-  background: #FFFFFF;
+  bottom: 70px;
+  /*
+  background: #ffffff;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25); /* 이미지 높이를 조정하세요 */
-  border-radius:100px;
+  border-radius: 100px;
 }
 
 .direction-card-image2 img {
   max-width: 100%;
   max-height: 100%;
-  width:35x;
+  width: 50x;
 }
 
-.direction-spot{
-  display:flex;
+.direction-spot {
+  display: flex;
 }
 
-.direction-spot img{
+.direction-spot img {
   max-width: 30px;
   max-height: 30px;
-  margin-top:12px;
+  margin-top: 12px;
 }
 
-.direction-spot p{
-  position:relative;
-  color:white;
+.direction-spot p {
+  position: relative;
+  color: white;
 }
 
-.bar-container{
+.bar-container {
+  /* position: absolute; */
+  bottom: 0;
+  margin: 0 auto;
   display: flex;
-  /*flex-direction: ;*/
   align-items: center;
   padding: 20px;
-  background-color:#202525;
-  height:10px;
-  width:380px;
+  background-color: #202525;
+  height: 10px;
+  width: 380px;
+  z-index: 9999 !important;
 }
 
-.bar-container img{
+.bar-container img {
   max-width: 30px;
   max-height: 30px;
-  margin-top:12px;
+  margin-top: 12px;
 }
 
-.bar-contents{
-  color:#ffffff;
-  padding:60px;
+.bar-contents {
+  color: #ffffff;
+  padding: 60px;
 }
 
-.bar-contents2{
-  color:#ffffff;
-  padding:40px;
+.bar-contents2 {
+  color: #ffffff;
+  padding: 40px;
 }
 
-@media only screen and (max-width: 768px) {
+/* @media only screen and (max-width: 768px) {
   .driving-container {
     padding: 10px;
   }
-}
+} */
