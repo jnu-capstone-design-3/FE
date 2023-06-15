@@ -1,0 +1,68 @@
+/* 기본 스타일 */
+.signup_wrap {
+  background-color: #f8f8f8;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.signup_h1 {
+  margin: 0;
+  font-size: 2em;
+  color: rgb(220, 114, 93);
+  padding: 20px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.signup_form {
+  width: 100%;
+  max-width: 400px;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+
+.signup_label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+input[type="submit"],
+input[type="button"] {
+  background-color: rgb(220, 114, 93);
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 3px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover,
+input[type="button"]:hover {
+  background-color: #e18f74;
+}
+
+/* 미디어 쿼리 */
+@media (min-width: 768px) {
+  .signup_form {
+    max-width: 600px;
+  }
+}

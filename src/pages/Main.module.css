@@ -1,0 +1,98 @@
+.searchBarWrap {
+  position: absolute;
+  top: 3%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  left: 0;
+  right: 0;
+  z-index: 3;
+}
+.searchBar {
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  min-width: 332px;
+  width: 50%;
+  background-color: #ffffff;
+  padding: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+.icon:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+.nav {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  min-width: 300px;
+  max-width: 300px;
+  left: -300px;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  z-index: 4;
+  transition: 0.33s;
+  padding: 44px;
+  box-sizing: border-box;
+}
+.nav_bg {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 3;
+  display: none;
+}
+.nav_h2 {
+  font-weight: bolder;
+  font-size: 1.1rem;
+  padding: 10px 0 45px 0;
+  border-bottom: 1px solid #d8d8d8;
+  text-align: center;
+}
+.nav_ul > li {
+  margin-top: 22px;
+  font-weight: bold;
+  padding: 7px 2px;
+}
+.nav_ul > li:hover {
+  cursor: pointer;
+  background: linear-gradient(to right, #eb8979, #ffffff);
+  transition: 0.33s;
+}
+.add_group_dialog_wrap {
+  border: none;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  width: 360px;
+  height: 730px;
+  padding: 0;
+  border-radius: 5px;
+}
+input[type="checkbox"] {
+  display: none;
+}
+.checkbox_label {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1px solid #cd5c4a;
+}
+.distance_wrap {
+  align-self: auto;
+  background-color: #ec6a56;
+  border-radius: 10px;
+  margin-top: 5px;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  gap: 10px;
+}
