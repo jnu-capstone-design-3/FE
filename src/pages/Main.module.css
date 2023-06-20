@@ -132,8 +132,8 @@ input[type="checkbox"] {
 }
 .reset_button {
   z-index: 1;
-  bottom: 30px;
-  right: 30px;
+  bottom: 180px;
+  right: 10px;
   position: fixed;
   border: 1px solid black;
   background-color: #ffffff;
@@ -142,6 +142,8 @@ input[type="checkbox"] {
   justify-content: center;
   align-items: center;
   padding: 5px;
+  width: 40px;
+  height: 40px;
 }
 .reset_button:hover {
   cursor: pointer;

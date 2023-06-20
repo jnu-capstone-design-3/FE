@@ -371,7 +371,7 @@ function Main() {
       >
         <div className={styles.bottom_nav}>
           <div>
-            <h3>도보</h3>
+            <h3>고겨레</h3>
             <img
               src={arrow}
               alt="image"
@@ -380,7 +380,7 @@ function Main() {
             <p>약 {walkText}</p>
           </div>
           <div>
-            <h3>자전거</h3>
+            <h3>테무진</h3>
             <img
               src={arrow2}
               alt="image"
@@ -390,11 +390,13 @@ function Main() {
           </div>
         </div>
       </div>
+      
       <div
         className={styles.reset_button}
         title="내 위치"
         onClick={onClickResetButton}
       >
+    
         <Icon icon="iconoir:position" width={50} />
       </div>
       <dialog className={styles.add_group_dialog_wrap} ref={addGroupDialogRef}>
