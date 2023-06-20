@@ -96,3 +96,52 @@ input[type="checkbox"] {
   padding: 8px 16px;
   gap: 10px;
 }
+.bottom_nav_wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  bottom: 0;
+  z-index: 1;
+}
+.bottom_nav {
+  min-width: 360px;
+  background-color: #474946;
+  border-radius: 20px 20px 0 0;
+  display: flex;
+  justify-content: space-around;
+  padding: 14px;
+  gap: 14px;
+}
+.bottom_nav > div {
+  width: 160px;
+  background-color: #f6f6f6;
+  padding: 8px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.bottom_nav > div > h3 {
+  font-weight: bold;
+}
+.bottom_nav > div > p {
+  align-self: center;
+}
+.reset_button {
+  z-index: 1;
+  bottom: 30px;
+  right: 30px;
+  position: fixed;
+  border: 1px solid black;
+  background-color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+}
+.reset_button:hover {
+  cursor: pointer;
+  background-color: #474946;
+}

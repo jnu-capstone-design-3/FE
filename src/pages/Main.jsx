@@ -41,6 +41,8 @@ function Main() {
   const [isMouseoverMarker, setIsMouseoverMarker] = useState(false);
   const [distance, setDistance] = useState(null);
   const [markerName, setMarkerName] = useState(null);
+  const [walkText, setWalkText] = useState(null);
+  const [bycicleText, setBycicleText] = useState(null);
 
   const mapRef = useRef(null);
   const navRef = useRef(null);
@@ -126,14 +128,23 @@ function Main() {
     const ps = new kakao.maps.services.Places();
     ps.keywordSearch(searchText, (data, status, pagination) => {
       if (status === kakao.maps.services.Status.OK) {
-        console.log(data);
         const bounds = new kakao.maps.LatLngBounds();
         for (let i = 0; i < data.length; i++) {
           const marker = new kakao.maps.Marker({
             map: map,
             position: new kakao.maps.LatLng(data[i].y, data[i].x),
           });
-          kakao.maps.event.addListener(marker, "click", function () {
+          const polyline = new kakao.maps.Polyline({
+            path: [
+              marker.getPosition(),
+              new kakao.maps.LatLng(coords[0], coords[1]),
+            ],
+            strokeWeight: 5, // 선의 두께 입니다
+            strokeColor: "#cd5c4a", // 선의 색깔입니다
+            strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+            strokeStyle: "solid", // 선의 스타일입니다
+          });
+          kakao.maps.event.addListener(marker, "mouseover", () => {
             // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
             infowindow.setContent(
               '<div style="padding: 10px 5px; font-size:12px; font-family: Arial, sans-serif;">' +
@@ -141,6 +152,35 @@ function Main() {
                 "</div>"
             );
             infowindow.open(map, marker);
+            polyline.setMap(map);
+            const walkTime = (polyline.getLength() / 67) | 0; // 도보의 시속은 평균 4km/h 이고 도보의 분속은 67m/min입니다
+            const bycicleTime = (polyline.getLength() / 227) | 0; // 자전거의 평균 시속은 16km/h 이고 이것을 기준으로 자전거의 분속은 267m/min입니다
+            setWalkText(
+              (v) =>
+                `${walkTime >= 60 ? `${Math.floor(walkTime / 60)}시간` : ``} ${
+                  walkTime % 60
+                }분`
+            );
+            setBycicleText(
+              (v) =>
+                `${
+                  bycicleTime >= 60 ? `${Math.floor(bycicleTime / 60)}시간` : ``
+                } ${bycicleTime % 60}분`
+            );
+            setMarkerName(data[i].place_name);
+            setIsMouseoverMarker(true);
+            setDistance(polyline.getLength());
+          });
+          kakao.maps.event.addListener(marker, "mouseout", () => {
+            infowindow.close();
+            polyline.setMap(null);
+            setWalkText(null);
+            setIsMouseoverMarker(false);
+            setBycicleText(null);
+          });
+          kakao.maps.event.addListener(marker, "click", () => {
+            map.setLevel(2);
+            map.panTo(marker.getPosition());
           });
           bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
         }
@@ -229,6 +269,10 @@ function Main() {
       clearTimeout(timer);
     }, 1500);
   };
+  const onClickResetButton = () => {
+    const { kakao } = window;
+    map.panTo(new kakao.maps.LatLng(coords[0], coords[1]));
+  };
   const test = () => {
     alert("개발중");
   };
@@ -257,6 +301,7 @@ function Main() {
             value={searchText}
             onChange={onChangeSearchText}
             required
+            placeholder="목적지를 입력하세요"
           />
           <Icon
             icon="fluent:mic-28-regular"
@@ -316,6 +361,30 @@ function Main() {
         </ul>
       </div>
       <div className={styles.nav_bg} ref={navBgRef}></div>
+      <div
+        className={styles.bottom_nav_wrap}
+        style={{
+          display: walkText ? "flex" : "none",
+        }}
+      >
+        <div className={styles.bottom_nav}>
+          <div>
+            <h3>도보</h3>
+            <p>약 {walkText}</p>
+          </div>
+          <div>
+            <h3>자전거</h3>
+            <p>약 {bycicleText}</p>
+          </div>
+        </div>
+      </div>
+      <div
+        className={styles.reset_button}
+        title="내 위치"
+        onClick={onClickResetButton}
+      >
+        <Icon icon="iconoir:position" width={50} />
+      </div>
       <dialog className={styles.add_group_dialog_wrap} ref={addGroupDialogRef}>
         <form
           style={{

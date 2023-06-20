@@ -20,7 +20,7 @@ const userSlice = createSlice({
       state.email = action.payload;
     },
     setPassword: (state, action) => {
-      state.password = action.payload;
+      state.password  = action.payload;
     },
   },
 });
