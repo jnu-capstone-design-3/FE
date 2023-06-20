@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { Icon } from "@iconify/react";
 import styles from "./Main.module.css";
 import userIcon from "../assets/img/profile.png";
+import arrow from "../assets/img/arrow.png";
+import arrow2 from "../assets/img/arrow2.png";
 import marker from "../assets/img/spot.png";
 import myMarker from "../assets/img/spot2.png";
 import { useNavigate } from "react-router-dom";
@@ -370,10 +372,20 @@ function Main() {
         <div className={styles.bottom_nav}>
           <div>
             <h3>도보</h3>
+            <img
+              src={arrow}
+              alt="image"
+              style={{ width: "60px", height: "60px" }}
+            />
             <p>약 {walkText}</p>
           </div>
           <div>
             <h3>자전거</h3>
+            <img
+              src={arrow2}
+              alt="image"
+              style={{ width: "60px", height: "60px" }}
+            />
             <p>약 {bycicleText}</p>
           </div>
         </div>

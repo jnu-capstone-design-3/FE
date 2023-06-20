@@ -114,6 +114,8 @@ input[type="checkbox"] {
   gap: 14px;
 }
 .bottom_nav > div {
+  justify-content: center;
+  align-items: center;
   width: 160px;
   background-color: #f6f6f6;
   padding: 8px;

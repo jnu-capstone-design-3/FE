@@ -47,8 +47,9 @@ function Main() {
           onChange={onChangePassword}
           required
         />
-        <button type="submit">로그인</button>
-        <button type="button" onClick={() => navigate("/signup")}>
+        <button type="submit" className={styles.kakao_login}>카카오톡 로그인</button>
+        <button type="submit" className={styles.login}>로그인</button>
+        <button type="button" onClick={() => navigate("/signup")} className={styles.register}>
           회원가입
         </button>
       </form>

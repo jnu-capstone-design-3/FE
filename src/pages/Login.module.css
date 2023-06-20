@@ -40,6 +40,19 @@ input[type="password"] {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
+/*_login{
+  background-color: 	#fef01b;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 3px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  width: 100%; 
+  margin-bottom: 10px;
+}
+*/
+
+/*
 button[type="submit"],
 button[type="button"] {
   background-color: rgb(220, 114, 93);
@@ -48,24 +61,51 @@ button[type="button"] {
   border: none;
   border-radius: 3px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  width: 100%; /* 추가 */
+  width: 100%; 
   margin-bottom: 10px;
+}*/
+
+.login {
+  background-color: rgb(220, 114, 93);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 3px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  margin-bottom: 10px;
+  font-weight: bold;
 }
+
 button[type="submit"]:hover,
 button[type="button"]:hover {
   cursor: pointer;
   opacity: 0.7;
 }
 
-#kakao_login {
-  background-color: #fecb68;
-  color: white;
+.kakao_login {
+  background-color: #ffe500;
+  color: #704f31;
   padding: 10px 20px;
   border: none;
   border-radius: 3px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   width: 100%;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.register {
+  background-color: rgb(220, 114, 93);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 3px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  margin-bottom: 10px;
+  font-weight: bold;
 }
 
 /* 추가 */
